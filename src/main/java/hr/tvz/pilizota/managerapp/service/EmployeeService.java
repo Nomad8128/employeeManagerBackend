@@ -24,7 +24,11 @@ public class EmployeeService {
     }
 
     public Employee addEmployee(Employee employee){
-        return employeeRepository.save(employee);
+        Employee existingEmployee = employeeRepository.findEmployeeByName(employee.getName());
+        if (existingEmployee==null){
+            return employeeRepository.save(employee);
+        }
+        else return new Employee();
     }
 
     public Employee updateEmployee(Employee employee){
