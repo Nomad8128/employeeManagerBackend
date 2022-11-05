@@ -7,8 +7,11 @@ import javax.transaction.Transactional;
 
 @Transactional
 public interface EmployeeRepository extends JpaRepository<Employee, Long> {
-    Employee findEmployeeByName(String name);
-    void deleteEmployeeByName(String name);
+    Employee findEmployeeById(Long id);
+
+    Employee findEmployeeByFirstNameAndLastName(String firstName, String lastName);
+
+    void deleteEmployeeById(Long id);
 
 
 }

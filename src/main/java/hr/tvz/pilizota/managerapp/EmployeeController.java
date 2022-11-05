@@ -23,15 +23,18 @@ public class EmployeeController {
         return new ResponseEntity<>(employees, HttpStatus.OK);
     }
 
-    @GetMapping("/find/{name}")
-    public ResponseEntity<Employee> getEmployeeByName(@PathVariable("name") String name){
-        Employee employee = employeeService.findEmployeeByName(name);
+    @GetMapping("/find/{id}")
+    public ResponseEntity<Employee> getEmployeeById(@PathVariable("id") Long id){
+        Employee employee = employeeService.findEmployeeById(id);
         return new ResponseEntity<>(employee, HttpStatus.OK);
     }
 
     @PostMapping("/add")
     public ResponseEntity<Employee> addEmployee(@RequestBody Employee employee){
         Employee newEmployee = employeeService.addEmployee(employee);
+        if (newEmployee.getFirstName()==null){
+            return new ResponseEntity<>(newEmployee, HttpStatus.CONFLICT);
+        }
         return new ResponseEntity<>(newEmployee, HttpStatus.CREATED);
     }
 
@@ -40,9 +43,9 @@ public class EmployeeController {
         Employee updateEmployee = employeeService.updateEmployee(employee);
         return new ResponseEntity<>(updateEmployee, HttpStatus.OK);
     }
-    @DeleteMapping("/delete/{name}")
-    public ResponseEntity<?> deleteEmployee(@PathVariable("name") String name){
-        employeeService.deleteEmployee(name);
+    @DeleteMapping("/delete/{id}")
+    public ResponseEntity<?> deleteEmployee(@PathVariable("id") Long id){
+        employeeService.deleteEmployee(id);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 }

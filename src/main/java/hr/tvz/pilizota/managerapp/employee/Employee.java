@@ -9,6 +9,7 @@ public class Employee implements Serializable {
     public enum Gender {
         MALE, FEMALE
     }
+
     public enum Contract {
         INDEFINITE, DETERMINED
     }
@@ -17,8 +18,9 @@ public class Employee implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @Column(name="name", nullable = false, unique = true)
-    private String name;
+    private String firstName;
+
+    private String lastName;
 
     private String picture;
 
@@ -40,11 +42,13 @@ public class Employee implements Serializable {
 
     private Integer paid_leave_days;
 
+
     public Employee() {
     }
 
-    public Employee(String name, String picture, Gender gender, Integer year_of_birth, String work_start_date, Contract contract_type, String contract_length, String department, Integer annual_leave_days, Integer vacation_days, Integer paid_leave_days) {
-        this.name = name;
+    public Employee(String firstName, String lastName, String picture, Gender gender, Integer year_of_birth, String work_start_date, Contract contract_type, String contract_length, String department, Integer annual_leave_days, Integer vacation_days, Integer paid_leave_days) {
+        this.firstName = firstName;
+        this.lastName = lastName;
         this.picture = picture;
         this.gender = gender;
         this.year_of_birth = year_of_birth;
@@ -65,12 +69,20 @@ public class Employee implements Serializable {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public String getFirstName() {
+        return firstName;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
     }
 
     public String getPicture() {
@@ -157,19 +169,20 @@ public class Employee implements Serializable {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof Employee employee)) return false;
-        return name.equals(employee.name);
+        return firstName.equals(employee.firstName) && lastName.equals(employee.lastName);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(name);
+        return Objects.hash(firstName, lastName);
     }
 
     @Override
     public String toString() {
         return "Employee{" +
                 "id=" + id +
-                ", name='" + name + '\'' +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
                 ", picture='" + picture + '\'' +
                 ", gender=" + gender +
                 ", year_of_birth=" + year_of_birth +

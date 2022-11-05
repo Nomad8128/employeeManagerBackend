@@ -19,12 +19,12 @@ public class EmployeeService {
         return employeeRepository.findAll();
     }
 
-    public Employee findEmployeeByName(String name){
-        return employeeRepository.findEmployeeByName(name);
+    public Employee findEmployeeById(Long id){
+        return employeeRepository.findEmployeeById(id);
     }
 
     public Employee addEmployee(Employee employee){
-        Employee existingEmployee = employeeRepository.findEmployeeByName(employee.getName());
+        Employee existingEmployee = employeeRepository.findEmployeeByFirstNameAndLastName(employee.getFirstName(), employee.getLastName());
         if (existingEmployee==null){
             return employeeRepository.save(employee);
         }
@@ -35,7 +35,7 @@ public class EmployeeService {
         return employeeRepository.save(employee);
     }
 
-    public void deleteEmployee(String name){
-        employeeRepository.deleteEmployeeByName(name);
+    public void deleteEmployee(Long id){
+        employeeRepository.deleteEmployeeById(id);
     }
 }
