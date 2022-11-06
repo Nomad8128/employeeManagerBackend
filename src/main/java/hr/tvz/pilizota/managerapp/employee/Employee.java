@@ -7,11 +7,11 @@ import java.util.Objects;
 @Entity
 public class Employee implements Serializable {
     public enum Gender {
-        MALE, FEMALE
+        Male, Female
     }
 
     public enum Contract {
-        INDEFINITE, DETERMINED
+        Indefinite, Determined
     }
 
     @Id
